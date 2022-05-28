@@ -39,6 +39,7 @@ from utils.color_recognition_module import color_recognition_api
 # Variables
 is_vehicle_detected = [0]
 ROI_POSITION = 100
+ROI_POSITION = 1300
 
 _TITLE_LEFT_MARGIN = 10
 _TITLE_TOP_MARGIN = 10
@@ -183,7 +184,6 @@ def draw_bounding_box_on_image(current_frame_number, image,
 
     detected_vehicle_image = image_temp[int(top):int(bottom), int(left):int(right)]
 
-    if(right > ROI_POSITION):  # if the vehicle get in ROI area, vehicle predicted_speed predicted_color algorithms are called - 200 is an arbitrary value, for my case it looks very well to set position of ROI line at y pixel 200
         predicted_direction, predicted_speed,  is_vehicle_detected, update_csv = speed_prediction.predict_speed(
             top, bottom, right, left, current_frame_number, detected_vehicle_image, ROI_POSITION)
 

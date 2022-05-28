@@ -34,7 +34,7 @@ ToDos:
 - More powerful detection models will be shared.
 - Sample codes will be developed to process different types of input videos (for different types of road traffics such as two way lane road).
 - Code cleanup will be performed.
-- UI will be developed. 
+- UI will be developed.
 
 The input video can be accessible by this [link](https://github.com/ahmetozlu/vehicle_counting_tensorflow/blob/master/input_video.mp4).
 
@@ -81,7 +81,7 @@ Demo video of the project is available on [My YouTube Channel](https://www.youtu
 **Docker setup with Nvidia GPU:** Run the demo in the GPU without installing anything, just nvidia-docker. The command to set up this docker:
 
     docker-compose up
-    
+
 Alternative for nvidia-docker, you can follow the installation steps are given below!
 
 **1.) Python and pip**
@@ -93,7 +93,7 @@ Python is automatically installed on Ubuntu. Take a moment to confirm (by issuin
 The pip or pip3 package manager is usually installed on Ubuntu. Take a moment to confirm (by issuing a *pip -V* or *pip3 -V* command) that pip or pip3 is installed. We strongly recommend version 8.1 or higher of pip or pip3. If Version 8.1 or later is not installed, issue the following command, which will either install or upgrade to the latest pip version:
 
     $ sudo apt-get install python3-pip python3-dev # for Python 3.n
-    
+
 **2.) OpenCV**
 
 See required commands to install OpenCV on Ubuntu in [here](https://gist.github.com/dynamicguy/3d1fce8dae65e765f7c4).
@@ -110,7 +110,7 @@ Current program is compatible with TensorFlow 1.5.0 version. Please uncomment th
 **4.) TensorFlow Object Detection API**
 
 See required commands to install TensorFlow Object Detection API on Ubuntu in [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md).
-  
+
 If you are still getting problem about installation after completed the installation of the packet that are given above, please check that [link](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md) out to get detailed info about installation.
 
 ---

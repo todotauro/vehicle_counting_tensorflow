@@ -12,6 +12,7 @@
 #############################################################################################
 
 # Imports
+import argparse
 import numpy as np
 import os
 import six.moves.urllib as urllib
@@ -72,10 +73,6 @@ NUM_CLASSES = 90
 # Load a (frozen) Tensorflow model into memory.
 detection_graph = tf.Graph()
 with detection_graph.as_default():
-    od_graph_def = tf.GraphDef()
-    with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
-    #od_graph_def = tf.compat.v1.GraphDef() # use this line to run it with TensorFlow version 2.x
-    #with tf.compat.v2.io.gfile.GFile(PATH_TO_CKPT, 'rb') as fid: # use this line to run it with TensorFlow version 2.x
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
@@ -84,7 +81,7 @@ with detection_graph.as_default():
 # Label maps map indices to category names, so that when our convolution network predicts 5, we know that this corresponds to airplane. Here I use internal utility functions, but anything that returns a dictionary mapping integers to appropriate string labels would be fine
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map,
-        max_num_classes=NUM_CLASSES, use_display_name=True)
+                                                            max_num_classes=NUM_CLASSES, use_display_name=True)
 category_index = label_map_util.create_category_index(categories)
 
 
@@ -92,7 +89,7 @@ category_index = label_map_util.create_category_index(categories)
 def load_image_into_numpy_array(image):
     (im_width, im_height) = image.size
     return np.array(image.getdata()).reshape((im_height, im_width,
-            3)).astype(np.uint8)
+                                              3)).astype(np.uint8)
 
 
 # Detection
@@ -103,13 +100,14 @@ def object_detection_function(command):
     size = 'waiting...'
     color = 'waiting...'
 
-    if(command=="imwrite"):
+    if(command == "imwrite"):
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        output_movie = cv2.VideoWriter(source_video.split(".")[0]+'_output.avi', fourcc, fps, (width, height))
+        output_movie = cv2.VideoWriter(source_video.split(
+            ".")[0]+'_output.avi', fourcc, fps, (width, height))
 
     with detection_graph.as_default():
         with tf.Session(graph=detection_graph) as sess:
-        #with tf.compat.v1.Session(graph=detection_graph) as sess: # use this line to run it with TensorFlow version 2.x
+            # with tf.compat.v1.Session(graph=detection_graph) as sess: # use this line to run it with TensorFlow version 2.x
 
             # Definite input and output Tensors for detection_graph
             image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
@@ -128,7 +126,7 @@ def object_detection_function(command):
                 (ret, frame) = cap.read()
 
                 if not ret:
-                    print ('end of the video file...')
+                    print('end of the video file...')
                     break
 
                 input_frame = frame
@@ -139,7 +137,7 @@ def object_detection_function(command):
                 # Actual detection.
                 (boxes, scores, classes, num) = \
                     sess.run([detection_boxes, detection_scores,
-                             detection_classes, num_detections],
+                              detection_classes, num_detections],
                              feed_dict={image_tensor: image_np_expanded})
 
                 # Visualization of the results of a detection.
@@ -153,7 +151,7 @@ def object_detection_function(command):
                     category_index,
                     use_normalized_coordinates=True,
                     line_thickness=4,
-                    )
+                )
 
                 total_passed_vehicle = total_passed_vehicle + counter
 
@@ -168,7 +166,7 @@ def object_detection_function(command):
                     (0, 0xFF, 0xFF),
                     2,
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    )
+                )
 
                 # when the vehicle passed over line and counted, make the color of ROI line green
                 if counter == 1:
@@ -187,7 +185,7 @@ def object_detection_function(command):
                     (0, 0, 0xFF),
                     2,
                     cv2.LINE_AA,
-                    )
+                )
                 cv2.putText(
                     input_frame,
                     'LAST PASSED VEHICLE INFO',
@@ -197,7 +195,7 @@ def object_detection_function(command):
                     (0xFF, 0xFF, 0xFF),
                     1,
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    )
+                )
                 cv2.putText(
                     input_frame,
                     '-Movement Direction: ' + direction,
@@ -207,7 +205,7 @@ def object_detection_function(command):
                     (0xFF, 0xFF, 0xFF),
                     1,
                     cv2.FONT_HERSHEY_COMPLEX_SMALL,
-                    )
+                )
                 cv2.putText(
                     input_frame,
                     '-Speed(km/h): ' + str(speed).split(".")[0],
@@ -217,7 +215,7 @@ def object_detection_function(command):
                     (0xFF, 0xFF, 0xFF),
                     1,
                     cv2.FONT_HERSHEY_COMPLEX_SMALL,
-                    )
+                )
                 cv2.putText(
                     input_frame,
                     '-Color: ' + color,
@@ -227,7 +225,7 @@ def object_detection_function(command):
                     (0xFF, 0xFF, 0xFF),
                     1,
                     cv2.FONT_HERSHEY_COMPLEX_SMALL,
-                    )
+                )
                 cv2.putText(
                     input_frame,
                     '-Vehicle Size/Type: ' + size,
@@ -237,14 +235,14 @@ def object_detection_function(command):
                     (0xFF, 0xFF, 0xFF),
                     1,
                     cv2.FONT_HERSHEY_COMPLEX_SMALL,
-                    )
+                )
 
-                if(command=="imshow"):
+                if(command == "imshow"):
                     cv2.imshow('vehicle detection', input_frame)
 
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
-                elif(command=="imwrite"):
+                elif(command == "imwrite"):
                     output_movie.write(input_frame)
                     print("writing frame...")
 
@@ -258,11 +256,10 @@ def object_detection_function(command):
             cv2.destroyAllWindows()
 
 
-import argparse
 # Parse command line arguments
 parser = argparse.ArgumentParser(description='Vehicle Detection TensorFlow.')
 parser.add_argument("command",
                     metavar="<command>",
                     help="'imshow' or 'imwrite'")
 args = parser.parse_args()
-object_detection_function(args.command)		
+object_detection_function(args.command)

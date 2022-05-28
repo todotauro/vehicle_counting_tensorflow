@@ -26,6 +26,7 @@ import numpy as np
 import csv
 import time
 import logging
+import constant
 
 from packaging import version
 from logging import DEBUG
@@ -38,7 +39,8 @@ from PIL import Image
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
-ROI_position = 1300
+ROI_POSITION = 900
+
 
 # initialize .csv
 with open('traffic_measurement.csv', 'w') as f:
@@ -187,8 +189,8 @@ def object_detection_function(command):
                     cv2.line(input_frame, (0, 200), (640, 200), (255, 0, 0), 5)
 
                 # insert information text to video frame
-                cv2.rectangle(input_frame, (ROI_POSITION, 0),
-                              (ROI_POSITION, height_img), (0, 0, 0xFF), 5)
+                cv2.rectangle(input_frame, (constant.ROI_POSITION, 0),
+                              (constant.ROI_POSITION, height_img), (0, 0, 0xFF), 5)
                 cv2.putText(
                     input_frame,
                     'HELLO',

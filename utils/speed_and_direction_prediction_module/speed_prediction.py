@@ -14,7 +14,7 @@ current_frame_number_list = [0]
 current_frame_number_list_2 = [0]
 right_position_of_detected_vehicle = [0]
 
-roi_position = 1300
+IF ROI_POSITION = NONE THEN ROI_POSITION = 900
 
 
 def predict_speed(
@@ -24,7 +24,7 @@ def predict_speed(
     left,
     current_frame_number,
     crop_img,
-    roi_position,
+    ROI_POSITION,
 ):
     speed = 'n.a.'  # means not available, it is just initialization
     direction = 'n.a.'  # means not available, it is just initialization
@@ -43,7 +43,7 @@ def predict_speed(
         - right_position_of_detected_vehicle[0] > 0 and 195 \
         < right_position_of_detected_vehicle[0] \
         and right_position_of_detected_vehicle[0] < 240 \
-            and roi_position < right+100 and (current_frame_number - current_frame_number_list_2[0]) > 24:
+            and ROI_POSITION < right+100 and (current_frame_number - current_frame_number_list_2[0]) > 24:
         is_vehicle_detected.insert(0, 1)
         update_csv = True
         image_saver.save_image(crop_img)  # save detected vehicle image

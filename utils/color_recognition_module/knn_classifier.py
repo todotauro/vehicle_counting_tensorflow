@@ -12,6 +12,7 @@ import random
 import math
 import operator
 import cv2
+import ipdb
 
 
 # calculation of euclidead distance
@@ -55,7 +56,7 @@ def loadDataset(
     filename2,
     training_feature_vector=[],
     test_feature_vector=[],
-    ):
+):
     with open(filename) as csvfile:
         lines = csv.reader(csvfile)
         dataset = list(lines)

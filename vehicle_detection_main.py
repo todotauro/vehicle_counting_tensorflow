@@ -12,6 +12,7 @@
 #############################################################################################
 
 # Imports
+import ipdb
 import argparse
 import numpy as np
 import os
@@ -109,6 +110,7 @@ def object_detection_function(command):
     size = 'waiting...'
     color = 'waiting...'
 
+    ipdb.set_trace(context=4)
     if(command == "imwrite"):
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         output_movie = cv2.VideoWriter(source_video.split(

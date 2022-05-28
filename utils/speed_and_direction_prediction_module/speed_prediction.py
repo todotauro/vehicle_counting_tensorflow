@@ -4,7 +4,9 @@
 # --- Author         : Ahmet Ozlu
 # --- Mail           : ahmetozlu93@gmail.com
 # --- Date           : 27th January 2018
+
 # ----------------------------------------------
+import ipdb
 from utils.image_utils import image_saver
 
 is_vehicle_detected = [0]

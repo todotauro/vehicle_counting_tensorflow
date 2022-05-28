@@ -38,6 +38,8 @@ from PIL import Image
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
+ROI_position = 1300
+
 # initialize .csv
 with open('traffic_measurement.csv', 'w') as f:
     writer = csv.writer(f)

@@ -16,7 +16,6 @@
 """Label map utility functions."""
 
 import logging
-
 import ipdb
 import tensorflow as tf
 from google.protobuf import text_format

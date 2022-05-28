@@ -26,7 +26,6 @@ import numpy as np
 import csv
 import time
 import logging
-import constant
 
 from packaging import version
 from logging import DEBUG
@@ -189,8 +188,8 @@ def object_detection_function(command):
                     cv2.line(input_frame, (0, 200), (640, 200), (255, 0, 0), 5)
 
                 # insert information text to video frame
-                cv2.rectangle(input_frame, (constant.ROI_POSITION, 0),
-                              (constant.ROI_POSITION, height), (0, 0, 0xFF), 5)
+                cv2.rectangle(input_frame, (ROI_POSITION, 0),
+                              (ROI_POSITION, height), (0, 0, 0xFF), 5)
                 cv2.putText(
                     input_frame,
                     'HELLO',

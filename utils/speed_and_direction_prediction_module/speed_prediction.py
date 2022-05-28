@@ -14,7 +14,7 @@ current_frame_number_list = [0]
 current_frame_number_list_2 = [0]
 right_position_of_detected_vehicle = [0]
 
-IF ROI_POSITION = NONE THEN ROI_POSITION = 900
+ROI_POSITION = 900
 
 
 def predict_speed(

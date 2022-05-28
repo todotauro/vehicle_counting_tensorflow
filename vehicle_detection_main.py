@@ -190,7 +190,7 @@ def object_detection_function(command):
 
                 # insert information text to video frame
                 cv2.rectangle(input_frame, (constant.ROI_POSITION, 0),
-                              (constant.ROI_POSITION, height_img), (0, 0, 0xFF), 5)
+                              (constant.ROI_POSITION, height), (0, 0, 0xFF), 5)
                 cv2.putText(
                     input_frame,
                     'HELLO',

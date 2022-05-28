@@ -1,6 +1,8 @@
 numpy
 scipy
 scikit-image
-opencv
+tensorflow>1.4.0
+opencv-python
+#opencv
 packaging
 

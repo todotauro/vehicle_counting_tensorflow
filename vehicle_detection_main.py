@@ -78,6 +78,7 @@ with detection_graph.as_default():
     od_graph_def = tf.compat.v1.GraphDef()  # use this line to run it with TensorFlow version 2.x
     # use this line to run it with TensorFlow version 2.x
     with tf.compat.v2.io.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+        print(PATH_TO_CKPT)
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
@@ -183,7 +184,7 @@ def object_detection_function(command):
                 cv2.rectangle(input_frame, (10, 275), (230, 337), (180, 132, 109), -1)
                 cv2.putText(
                     input_frame,
-                    'ROI Line',
+                    'HELLO',
                     (545, 190),
                     font,
                     0.6,

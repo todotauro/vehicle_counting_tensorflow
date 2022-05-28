@@ -24,7 +24,10 @@ import cv2
 import numpy as np
 import csv
 import time
+import logging
+
 from packaging import version
+from logging import DEBUG
 
 from collections import defaultdict
 from io import StringIO

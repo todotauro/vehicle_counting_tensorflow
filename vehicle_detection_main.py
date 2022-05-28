@@ -178,7 +178,7 @@ def object_detection_function(command):
                 if counter == 1:
                     cv2.line(input_frame, (0, 200), (640, 200), (0, 0xFF, 0), 5)
                 else:
-                    cv2.line(input_frame, (0, 200), (640, 200), (0, 0, 0xFF), 5)
+                    cv2.line(input_frame, (0, 200), (640, 200), (255, 0, 0), 5)
 
                 # insert information text to video frame
                 cv2.rectangle(input_frame, (10, 275), (230, 337), (180, 132, 109), -1)
@@ -189,7 +189,7 @@ def object_detection_function(command):
                     font,
                     0.6,
                     (0, 0, 0xFF),
-                    2,
+                    4,
                     cv2.LINE_AA,
                 )
                 cv2.putText(

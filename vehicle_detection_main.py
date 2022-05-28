@@ -111,7 +111,7 @@ def object_detection_function(command):
             ".")[0]+'_output.avi', fourcc, fps, (width, height))
 
     with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:
+        with tf.compat.v1.Session() as sess:
             # with tf.compat.v1.Session(graph=detection_graph) as sess: # use this line to run it with TensorFlow version 2.x
 
             # Definite input and output Tensors for detection_graph

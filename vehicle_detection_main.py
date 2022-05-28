@@ -184,7 +184,7 @@ def object_detection_function(command):
 
                 # when the vehicle passed over line and counted, make the color of ROI line green
                 if counter == 1:
-                    cv2.line(input_frame, (0, 200), (widthOfFrame, ROI_Location), (0, 0xFF, 0), 5)
+                    cv2.line(input_frame, (0, 200), (widthOfFrame, ROI_POSITION), (0, 0xFF, 0), 5)
                 else:
                     cv2.line(input_frame, (0, 200), (640, 200), (255, 0, 0), 5)
 

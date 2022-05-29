@@ -11,7 +11,6 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import ipdb
 from scipy.stats import itemfreq
 from utils.color_recognition_module import knn_classifier as knn_classifier
 current_path = os.getcwd()

@@ -12,7 +12,6 @@ import random
 import math
 import operator
 import cv2
-import ipdb
 
 
 # calculation of euclidead distance

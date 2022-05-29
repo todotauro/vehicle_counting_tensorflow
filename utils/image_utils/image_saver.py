@@ -8,7 +8,6 @@
 
 import cv2
 import os
-import ipdb
 
 vehicle_count = [0]
 current_path = os.getcwd()

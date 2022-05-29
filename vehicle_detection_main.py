@@ -12,7 +12,6 @@
 #############################################################################################
 
 # Imports
-import ipdb
 import argparse
 import numpy as np
 import os
@@ -25,10 +24,7 @@ import cv2
 import numpy as np
 import csv
 import time
-import logging
-
 from packaging import version
-from logging import DEBUG
 
 from collections import defaultdict
 from io import StringIO
@@ -37,9 +33,6 @@ from PIL import Image
 # Object detection imports
 from utils import label_map_util
 from utils import visualization_utils as vis_util
-
-ROI_POSITION = 900
-
 
 # initialize .csv
 with open('traffic_measurement.csv', 'w') as f:
@@ -80,12 +73,10 @@ NUM_CLASSES = 90
 # Load a (frozen) Tensorflow model into memory.
 detection_graph = tf.Graph()
 with detection_graph.as_default():
-    #od_graph_def = tf.GraphDef()
-    # $with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
-    od_graph_def = tf.compat.v1.GraphDef()  # use this line to run it with TensorFlow version 2.x
-    # use this line to run it with TensorFlow version 2.x
-    with tf.compat.v2.io.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
-        print(PATH_TO_CKPT)
+    od_graph_def = tf.GraphDef()
+    with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+        # od_graph_def = tf.compat.v1.GraphDef() # use this line to run it with TensorFlow version 2.x
+        # with tf.compat.v2.io.gfile.GFile(PATH_TO_CKPT, 'rb') as fid: # use this line to run it with TensorFlow version 2.x
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
@@ -119,7 +110,7 @@ def object_detection_function(command):
             ".")[0]+'_output.avi', fourcc, fps, (width, height))
 
     with detection_graph.as_default():
-        with tf.compat.v1.Session() as sess:
+        with tf.Session(graph=detection_graph) as sess:
             # with tf.compat.v1.Session(graph=detection_graph) as sess: # use this line to run it with TensorFlow version 2.x
 
             # Definite input and output Tensors for detection_graph
@@ -183,21 +174,20 @@ def object_detection_function(command):
 
                 # when the vehicle passed over line and counted, make the color of ROI line green
                 if counter == 1:
-                    cv2.line(input_frame, (0, 200), (widthOfFrame, ROI_POSITION), (0, 0xFF, 0), 5)
+                    cv2.line(input_frame, (0, 200), (640, 200), (0, 0xFF, 0), 5)
                 else:
-                    cv2.line(input_frame, (0, 200), (640, 200), (255, 0, 0), 5)
+                    cv2.line(input_frame, (0, 200), (640, 200), (0, 0, 0xFF), 5)
 
                 # insert information text to video frame
-                cv2.rectangle(input_frame, (ROI_POSITION, 0),
-                              (ROI_POSITION, height), (0, 0, 0xFF), 5)
+                cv2.rectangle(input_frame, (10, 275), (230, 337), (180, 132, 109), -1)
                 cv2.putText(
                     input_frame,
-                    'HELLO',
+                    'ROI Line',
                     (545, 190),
                     font,
                     0.6,
                     (0, 0, 0xFF),
-                    4,
+                    2,
                     cv2.LINE_AA,
                 )
                 cv2.putText(

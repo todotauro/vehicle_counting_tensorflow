@@ -1,3 +1,39 @@
+from protos import string_int_label_map_pb2
+from google.protobuf import text_format
+import tensorflow as tf
+import logging
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+
+
+@todotauro
+todotauro
+/
+CountCars
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+CountCars/utils/label_map_util.py /
+
+
+@todotauro
+todotauro Add files via upload
+Latest commit bec82d1 2 days ago
+History
+1 contributor
+167 lines(139 sloc)  5.64 KB
+
 # Copyright 2017 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,18 +51,11 @@
 
 """Label map utility functions."""
 
-import logging
-import tensorflow as tf
-from google.protobuf import text_format
-from protos import string_int_label_map_pb2
-
 
 def _validate_label_map(label_map):
     """Checks if a label map is valid.
-
     Args:
       label_map: StringIntLabelMap to validate.
-
     Raises:
       ValueError: if label map is invalid.
     """
@@ -37,13 +66,11 @@ def _validate_label_map(label_map):
 
 def create_category_index(categories):
     """Creates dictionary of COCO compatible categories keyed by category id.
-
     Args:
       categories: a list of dicts, each of which has the following keys:
         'id': (required) an integer id uniquely identifying this category.
         'name': (required) string representing category name
           e.g., 'cat', 'dog', 'pizza'.
-
     Returns:
       category_index: a dict containing the same entries as categories, but keyed
         by the 'id' field of each category.
@@ -58,7 +85,6 @@ def convert_label_map_to_categories(label_map,
                                     max_num_classes,
                                     use_display_name=True):
     """Loads label map proto and returns categories list compatible with eval.
-
     This function loads a label map and returns a list of dicts, each of which
     has the following keys:
       'id': (required) an integer id uniquely identifying this category.
@@ -68,7 +94,6 @@ def convert_label_map_to_categories(label_map,
     between 0 (inclusive) and max_num_classes (exclusive).
     If there are several items mapping to the same id in the label map,
     we will only keep the first one in the categories list.
-
     Args:
       label_map: a StringIntLabelMapProto or None.  If None, a default categories
         list is created with max_num_classes categories.
@@ -106,15 +131,13 @@ def convert_label_map_to_categories(label_map,
 
 def load_labelmap(path):
     """Loads label map proto.
-
     Args:
       path: path to StringIntLabelMap proto text file.
     Returns:
       a StringIntLabelMapProto
     """
-    # with tf.gfile.GFile(path, 'r') as fid:
-    # use this line to run it with TensorFlow version 2.x
-    with tf.compat.v2.io.gfile.GFile(path, 'r') as fid:
+    with tf.gfile.GFile(path, 'r') as fid:
+        # with tf.compat.v2.io.gfile.GFile(path, 'r') as fid: # use this line to run it with TensorFlow version 2.x
         label_map_string = fid.read()
         label_map = string_int_label_map_pb2.StringIntLabelMap()
         try:
@@ -127,11 +150,9 @@ def load_labelmap(path):
 
 def get_label_map_dict(label_map_path, use_display_name=False):
     """Reads a label map and returns a dictionary of label names to id.
-
     Args:
       label_map_path: path to label_map.
       use_display_name: whether to use the label map items' display names as keys.
-
     Returns:
       A dictionary mapping label names to id.
     """
@@ -147,10 +168,8 @@ def get_label_map_dict(label_map_path, use_display_name=False):
 
 def create_category_index_from_labelmap(label_map_path):
     """Reads a label map and returns a category index.
-
     Args:
       label_map_path: Path to `StringIntLabelMap` proto text file.
-
     Returns:
       A category index, which is a dictionary that maps integer ids to dicts
       containing categories, e.g.
@@ -165,3 +184,18 @@ def create_category_index_from_labelmap(label_map_path):
 def create_class_agnostic_category_index():
     """Creates a category index with a single `object` class."""
     return {1: {'id': 1, 'name': 'object'}}
+
+
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

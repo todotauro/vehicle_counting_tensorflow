@@ -12,7 +12,6 @@ The functions do not return a value, instead they modify the image itself.
 """
 
 # Imports
-import ipdb
 import collections
 import functools
 import matplotlib.pyplot as plt

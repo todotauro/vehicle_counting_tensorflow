@@ -9,7 +9,6 @@
 from utils.color_recognition_module import color_histogram_feature_extraction
 from utils.color_recognition_module import knn_classifier
 import os
-import ipdb
 from utils.image_utils import crop_image
 
 current_path = os.getcwd()
